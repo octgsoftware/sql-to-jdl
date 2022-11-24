@@ -4,6 +4,7 @@ import static org.blackdread.sqltojava.entity.JdlFieldEnum.ENUM;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.STRING;
 import static org.blackdread.sqltojava.entity.JdlFieldEnum.UNSUPPORTED;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -53,7 +54,7 @@ public class JdlService {
             .map(this::buildEntity)
             .filter(Optional::isPresent)
             .map(Optional::get)
-            .sorted()
+            .sorted(Comparator.comparing(JdlEntity::isReadOnly).thenComparing(JdlEntity::getName))
             .collect(Collectors.toList());
     }
 
